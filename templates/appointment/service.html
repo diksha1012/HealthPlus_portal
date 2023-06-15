@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Service{% endblock %}
+
+{% block content %}
+
+  
+  <!-- ***** Breadcrumb Area End ***** -->
+
+  <!-- ***** Services Area Start ***** -->
+  <section class="dentist-area section-padding-50-0">
+   <center><h3 class="lead">Our Services</h3></center>
+
+      </br>
+    <div style="display: flex; gap: 3rem; flex-wrap: wrap; flex-direction: column;" class="container">
+      {% for image in images %}
+        <div style="display: flex; gap: 2rem;" class="row">
+          <img style="height: 50rem; min-width: 40rem;" src="{{image.image.url}}" />
+          <input class="submit" name={{image.image}} type="button" value="Analyze Report" style="height: 4rem; width: fit-content; border: 1px solid; background-color: #174ea6; color: white; padding: 1rem; border-radius: 1rem; cursor: pointer;" />
+          
+          <div id={{image.image.url|get_name_id}}></div>
+
+        </div>
+      {% endfor %}
+
+      <div class="row" style="display: flex; justify-content: center;">
+        
+      </div>
+    </div>
+  </section>
+  <!-- ***** Services Area End ***** -->
+
+  <!-- ***** Testimonials Area Start ***** -->
+  <script>
+    $(function(){
+     $('.submit').on('click', function(e){
+         e.preventDefault();
+         var id = $(this).attr('name').split("/")[1].split(".")[0];
+         console.log(id)
+         let name = $(this).attr('name');
+         $.ajax({
+             url: `/analyze/${$(this).attr('name')}`,
+             method: 'GET',
+             success: function(data){ $("#" + id).html(data) }
+         });
+      });
+    });
+  </script>
+
+{% endblock %}

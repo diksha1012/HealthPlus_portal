@@ -1,0 +1,1 @@
+web: gunicorn Hea.wsgi --log-file -

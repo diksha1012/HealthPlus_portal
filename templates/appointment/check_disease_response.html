@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+ <link rel="stylesheet" href="{% static 'bootswatch/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'bootswatch/bootstrap.min.css' %}">
+{% endblock styles %}
+{% block content %}
+  <div style="text-align:center; margin-top:5rem; margin-bottom:3rem; width:100%;"><h1>Result</h1></div>
+  <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+    {% for disease in result %}
+      {% if disease.percentage <= 30 and disease.percentage >= 0 %}
+        <div class="card border-danger mb-3" style="max-width: 90%;">
+          <div class="card-header" style="display:flex; flex-direction: row; justify-content: space-between;">
+            <p>{{disease.disease_name}}</p>
+            <p>{{disease.percentage}}%</p>
+          </div>
+            <div class="card-body">
+              <h4 class="card-title">Explained Symptoms</h4>
+              <p class="card-text">
+                <ul>
+                {% for symptom in disease.symptoms %}
+                  <li>{{symptom}}</li>
+                {% endfor %}
+                </ul>
+              </p>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Precautions</h4>
+              <p class="card-text">
+                <ul>
+                {% for precaution in disease.precautions %}
+                  <li>{{precaution}}</li>
+                {% endfor %}
+                </ul>
+              </p>
+            </div>
+        </div>
+      {% endif %}
+      {% if disease.percentage > 30 and disease.percentage <= 60 %}
+        <div class="card border-primary mb-3" style="max-width: 90%;">
+          <div class="card-header" style="display:flex; flex-direction: row; justify-content: space-between;">
+            <p>{{disease.disease_name}}</p>
+            <p>{{disease.percentage}}%</p>
+          </div>
+            <div class="card-body">
+              <h4 class="card-title">Explained Symptoms</h4>
+               <ul>
+                {% for symptom in disease.symptoms %}
+                  <li>{{symptom}}</li>
+                {% endfor %}
+               </ul>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Precautions</h4>
+              <p class="card-text">
+                <ul>
+                {% for precaution in disease.precautions %}
+                  <li>{{precaution}}</li>
+                {% endfor %}
+                </ul>
+              </p>
+            </div>
+        </div>
+      {% endif %}
+      {% if disease.percentage > 60 and disease.percentage <= 100 %}
+        <div class="card border-success mb-3" style="max-width: 90%;">
+          <div class="card-header" style="display:flex; flex-direction: row; justify-content: space-between;">
+            <p>{{disease.disease_name}}</p>
+            <p>{{disease.percentage}}%</p>
+          </div>
+            <div class="card-body">
+              <h4 class="card-title">Explained Symptoms</h4>
+               <ul>
+                {% for symptom in disease.symptoms %}
+                  <li>{{symptom}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Precautions</h4>
+              <p class="card-text">
+                <ul>
+                {% for precaution in disease.precautions %}
+                  <li>{{precaution}}</li>
+                {% endfor %}
+                </ul>
+              </p>
+            </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock content %}
